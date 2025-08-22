@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="cep">CEP</label>
+
+    <input type="number" placeholder="Digite seu CEP" name="cep" id="cep">
+    <button onclick="buscaCep()">Buscar</button>
+    <ul>
+        <li>RUA: <span id="dadoRua"></span></li>
+        <li>BAIRRO: <span id="dadoBairro"></span></li>
+        <li>CIDADE: <span id="dadoCidade"></span></li>
+        <li>ESTADO: <span id="dadoEstado"></span></li>
+    </ul>
+
+     <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        async function buscaCep() {
+            let cep = document.querySelector("input").value
+            console.log("buscando cep", cep)
+
+            url = await "https://viacep.com.br/ws/" + cep + "/json/"
+            fetch(url)
+                .then((res) => { return res.json() })
+                .then((cep) => {
+                    console.log(cep.logradouro)
+                    document.querySelector("#dadoRua").innerText = cep.logradouro
+                    document.querySelector("#dadoBairro").innerText = cep.bairro
+                    document.querySelector("#dadoCidade").innerText = cep.localidade
+                    document.querySelector("#dadoEstado").innerText = cep.uf
+                })
+        }
+    </script>
+
+</body>
+
+</html>
