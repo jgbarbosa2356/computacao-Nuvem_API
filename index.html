@@ -79,8 +79,13 @@
                 <label for="rua">Rua</label>
               </div>
               <div class="input-field col s6">
-                <a class="waves-effect waves-light btn"><i class="material-icons right">search</i>Enviar</a>
+                <a onclick="buscaRua()" class="waves-effect waves-light btn"><i
+                    class="material-icons right">search</i>Enviar</a>
               </div>
+            </div>
+
+            <div id="lista-ruas">
+              aqui vai aparecer varias ruas
             </div>
           </div>
         </div>
@@ -169,6 +174,37 @@
                 document.querySelector("#dadoBairro").innerText = cep.bairro
                 document.querySelector("#dadoCidade").innerText = cep.localidade
                 document.querySelector("#dadoEstado").innerText = cep.uf
+              })
+          }
+
+          function buscaRua() {
+            estado = document.querySelector("#estado").value
+            cidade = document.querySelector("#cidade").value
+            rua = document.querySelector("#rua").value
+
+            url = `https://viacep.com.br/ws/${estado}/${cidade}/${rua}/json/`
+
+            console.log("url montada", url)
+
+            fetch(url)
+              .then((res) => {
+                return res.json()
+              })
+              .then((ruas) => {
+                console.log(ruas)
+                let listaRuas = document.querySelector("#lista-ruas")
+
+                let ruasList = ""
+                for(let i=0; i < ruas.length; i++){
+                  ruasList += `<ul class="collection">
+                  <li class="collection-item"></li>RUA: <span id="dadoRua">${ruas[i].logradouro}</span></li>
+                  <li class="collection-item"></li>BAIRRO: <span id="dadoBairro">${ruas[i].bairro}</span></li>
+                  <li class="collection-item"></li>CIDADE: <span id="dadoCidade">${ruas[i].localidade}</span></li>
+                  <li class="collection-item"></li>ESTADO: <span id="dadoEstado">${ruas[i].estado}</span></li>
+               </ul>`
+                }
+
+                listaRuas.innerHTML = ruasList
               })
 
           }
