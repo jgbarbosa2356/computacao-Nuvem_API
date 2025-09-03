@@ -64,14 +64,10 @@
           <div id="test2" class="col s12">
             <div class="row">
               <div class="input-field col s6">
-                <i class="material-icons prefix">map</i>
-                <input id="estado" type="text" class="validate">
-                <label for="estado">Estado</label>
+                <select onchange="pegarCidades()" id="estado" class="browser-default"></select>
               </div>
               <div class="input-field col s6">
-                <i class="material-icons prefix">location_city</i>
-                <input id="cidade" type="text" class="validate">
-                <label for="cidade">Cidade</label>
+                <select id="cidade" class="browser-default"></select>
               </div>
               <div class="input-field col s6">
                 <i class="material-icons prefix">location_on</i>
@@ -195,7 +191,7 @@
                 let listaRuas = document.querySelector("#lista-ruas")
 
                 let ruasList = ""
-                for(let i=0; i < ruas.length; i++){
+                for (let i = 0; i < ruas.length; i++) {
                   ruasList += `<ul class="collection">
                   <li class="collection-item"></li>RUA: <span id="dadoRua">${ruas[i].logradouro}</span></li>
                   <li class="collection-item"></li>BAIRRO: <span id="dadoBairro">${ruas[i].bairro}</span></li>
@@ -207,6 +203,32 @@
                 listaRuas.innerHTML = ruasList
               })
 
+          }
+
+
+          function pegarEstados() { // FUNÇÃO CRIADA PARA PEGAR OS ESTADOS 
+            selectEstado = document.querySelector("#estado") // selecio na elemento SELECT NO HTML
+            let urlEstado = "https://servicodados.ibge.gov.br/api/v1/localidades/estados" //URL DO IBGE
+
+            fetch(urlEstado) // CHAMADA FETCH PARA A URL
+              .then((res) => { return res.json() }) // THEN PRA MONTAR O JSON
+              .then((estados) => { // THEN JÁ COM O JSON MONTANDO DOS ESTADOS
+
+                // INSERINDO ELEMENTO PADRÃO DO SELECT
+                let estadosList = '<option value="" disabled selected>Escolha um Estado</option>'
+                for (let i = 0; i < estados.length; i++) { // FOR PARA LISTAR TODOS OS ESTADOS
+                  estadosList += `<option value="${estados[i].sigla}">${estados[i].nome}</option>`
+                }
+
+                selectEstado.innerHTML = estadosList // INSERE NO ELEMENTO SELECT TODOS ESTADOS
+              })
+          }
+          pegarEstados() // CHAMADA DA FUNÇÃO PARA MONTAR OS ESTADOS NO ELEMENTO
+
+
+          function pegarCidades() {
+            uf = document.querySelector("#estado").value
+            console.log("pegagndo cidades da UF: ", uf)
           }
         </script>
 
