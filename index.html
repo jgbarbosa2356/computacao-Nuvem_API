@@ -29,8 +29,20 @@
 
 
   <!-- loading -->
-   <div class="progress">
-      <div class="indeterminate"></div>
+  <div class="loading center">
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="section no-pad-bot" id="index-banner">
@@ -103,8 +115,11 @@
 
       <!-- minha lógica -->
       <script>
+
+        $(".preloader-wrapper").hide(); // ESCONDE O LOADING
         // PEGANDO COM FETCH
         async function buscaCepFetch() {
+
           let cep = document.querySelector("input").value
           console.log("buscando cep", cep)
 
@@ -179,6 +194,8 @@
         }
 
         function buscaRua() {
+
+          $(".preloader-wrapper").show(); // MOSTRA O LOADING
           estado = document.querySelector("#estado").value
           cidade = document.querySelector("#cidade").value
           rua = document.querySelector("#rua").value
@@ -205,7 +222,10 @@
                </ul>`
               }
 
-              listaRuas.innerHTML = ruasList
+              setTimeout(() => {
+                listaRuas.innerHTML = ruasList
+                $(".preloader-wrapper").hide(); // ESCONDE O LOADING
+              }, 2000)
             })
 
         }
