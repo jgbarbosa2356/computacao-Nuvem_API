@@ -53,6 +53,7 @@
           <ul class="tabs">
             <li class="tab col s3"><a href="#test1">CEP</a></li>
             <li class="tab col s3"><a class="active" href="#test2">RUA</a></li>
+            <li class="tab col s3"><a class="active" href="#test3">LOG</a></li>
           </ul>
         </div>
         <!-- tab do cep -->
@@ -62,12 +63,12 @@
           <input type="number" placeholder="Digite seu CEP" name="cep" id="cep">
           <!-- <button >Buscar</button> -->
           <a onclick="buscaCepFetch()" class="waves-effect waves-light btn"><i
-              class="material-icons left">search</i>Buscar Fetch</a>
-          <a onclick="buscaCepAjax()" class="waves-effect waves-light btn"><i
+              class="material-icons left">search</i>Buscar</a>
+          <!-- <a onclick="buscaCepAjax()" class="waves-effect waves-light btn"><i
               class="material-icons left">search</i>Buscar
             Ajax</a>
           <a onclick="buscaCepAxios()" class="waves-effect waves-light btn"><i
-              class="material-icons left">search</i>Buscar Axios oi</a>
+              class="material-icons left">search</i>Buscar Axios oi</a> -->
           <ul class="collection">
             <li class="collection-item">RUA: <span id="dadoRua"></span></li>
             <li class="collection-item">BAIRRO: <span id="dadoBairro"></span></li>
@@ -100,29 +101,33 @@
           <div id="lista-ruas">
             aqui vai aparecer varias ruas
           </div>
+
+          <div id="test3" class="col s12">
+
+          </div>
         </div>
       </div>
 
 
 
-      <!-- Compiled and minified JavaScript -->
-      <!--  Scripts-->
+>
+      <!--  Scripts Externos -->
       <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="js/materialize.js"></script>
       <script src="js/init.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 
-      <script src="/js/scripts/buscaCepAjax.js"></script>
-      <script src="/js/scripts/buscaCepFetch.js"></script>
-      <script src="/js/scripts/buscaCepAxios.js"></script>
-      <script src="/js/scripts/buscaRua.js"></script>
-      <script src="/js/scripts/pegarCidades.js"></script>
-      <script src="/js/scripts/pegarEstados.js"></script>
-      <!-- minha lógica -->
+      <!-- MEUS SCRIPTS DO CEP -->
+      <script src="/js/scripts/cep/buscaCepAjax.js"></script>
+      <script src="/js/scripts/cep/buscaCepFetch.js"></script>
+      <script src="/js/scripts/cep/buscaCepAxios.js"></script>
+      <!-- MEUS SCRIPT DE RUA -->
+      <script src="/js/scripts/rua/buscaRua.js"></script>
+      <script src="/js/scripts/rua/pegarCidades.js"></script>
+      <script src="/js/scripts/rua/pegarEstados.js"></script>
       <script>
         $(".preloader-wrapper").hide(); // ESCONDE O LOADING
-        
       </script>
 
 </body>
