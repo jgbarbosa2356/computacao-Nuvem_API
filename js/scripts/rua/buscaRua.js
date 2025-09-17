@@ -7,6 +7,16 @@ function buscaRua() {
 
   url = `https://viacep.com.br/ws/${estado}/${cidade}/${rua}/json/`
 
+    let log = {
+    url: url,
+    data: new Date().toLocaleString(),
+    tipo: 'rua'
+  }
+
+  let logs = JSON.parse(localStorage.getItem('logs')) || []
+  logs.push(log)
+  localStorage.setItem('logs', JSON.stringify(logs))
+
   console.log("url montada", url)
 
   fetch(url)

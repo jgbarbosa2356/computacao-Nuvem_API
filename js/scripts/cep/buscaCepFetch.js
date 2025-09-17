@@ -3,11 +3,10 @@ async function buscaCepFetch() {
   let cep = document.querySelector("input").value
   console.log("buscando cep", cep)
 
-  let url = await "https://viacep.com.br/ws/" + cep + "/json/"
-  let url2 = await `https://viacep.com.br/ws/${cep}/json/`
+  let url = await "https://viacep.com.br/ws/" + cep + "/json/" // concatenação
+  let url2 = await `https://viacep.com.br/ws/${cep}/json/`  // template string
 
-  localStorage.setItem('logCEP', url)
-  // usando fetch
+  salvarLogs(url, 'cep')
 
   fetch(url)
     .then((res) => {
