@@ -1,18 +1,32 @@
-function pegarEstados() { // FUNÇÃO CRIADA PARA PEGAR OS ESTADOS 
-  selectEstado = document.querySelector("#estado") // selecio na elemento SELECT NO HTML
-  let urlEstado = "https://servicodados.ibge.gov.br/api/v1/localidades/estados" //URL DO IBGE
+function pegarEstados() { 
 
-  fetch(urlEstado) // CHAMADA FETCH PARA A URL
-    .then((res) => { return res.json() }) // THEN PRA MONTAR O JSON
-    .then((estados) => { // THEN JÁ COM O JSON MONTANDO DOS ESTADOS
+  // Seleciona o elemento <select> onde os estados serão inseridos
+  let selectEstado = document.querySelector("#estado") 
 
-      // INSERINDO ELEMENTO PADRÃO DO SELECT
+  // URL da API do IBGE para pegar todos os estados
+  let urlEstado = "https://servicodados.ibge.gov.br/api/v1/localidades/estados" 
+
+  // Faz a requisição à API usando fetch
+  fetch(urlEstado) 
+    .then((res) => { 
+      // Converte a resposta para JSON
+      return res.json() 
+    }) 
+    .then((estados) => { 
+      // Recebe o array de estados já convertido para JSON
+
+      // Cria a option padrão do select (desabilitada e selecionada)
       let estadosList = '<option value="" disabled selected>Escolha um Estado</option>'
-      for (let i = 0; i < estados.length; i++) { // FOR PARA LISTAR TODOS OS ESTADOS
+
+      // Loop para criar uma <option> para cada estado retornado
+      for (let i = 0; i < estados.length; i++) { 
         estadosList += `<option value="${estados[i].sigla}">${estados[i].nome}</option>`
       }
 
-      selectEstado.innerHTML = estadosList // INSERE NO ELEMENTO SELECT TODOS ESTADOS
+      // Insere todas as options dentro do select de estados
+      selectEstado.innerHTML = estadosList 
     })
 }
-pegarEstados() 
+
+// Chama a função para que os estados já apareçam ao carregar a página
+pegarEstados()

@@ -2,6 +2,7 @@
 <html lang="pt-br">
 
 <head>
+   <!-- Configura o charset e a viewport -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
   <title>Busca CEP</title>
@@ -12,128 +13,156 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
-<body>
+body>
+  <!-- Navbar superior -->
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">Busca CEP - Dona Lucinda</a>
+      
+      <!-- Links principais da navbar -->
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Navbar Link</a></li>
       </ul>
 
+      <!-- Navbar para dispositivos móveis -->
       <ul id="nav-mobile" class="sidenav">
         <li><a href="#">Navbar Link</a></li>
-
       </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+      <!-- Ícone para abrir menu em dispositivos móveis -->
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+        <i class="material-icons">menu</i>
+      </a>
     </div>
   </nav>
 
-
-  <!-- loading -->
+  <!-- Loading animado (pré-carregamento) -->
   <div class="loading center">
     <div class="preloader-wrapper big active">
       <div class="spinner-layer spinner-blue-only">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div>
-        <div class="gap-patch">
-          <div class="circle"></div>
-        </div>
-        <div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
+        <div class="circle-clipper left"><div class="circle"></div></div>
+        <div class="gap-patch"><div class="circle"></div></div>
+        <div class="circle-clipper right"><div class="circle"></div></div>
       </div>
     </div>
   </div>
 
+  <!-- Seção principal da página -->
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
 
       <div class="row">
         <div class="col s12">
+          <!-- Abas para alternar entre CEP, RUA e LOGS -->
           <ul class="tabs">
+            <!-- Aba CEP (ativa por padrão) -->
             <li class="tab col s3"><a id="cep-link" class="active" href="#tab-cep">CEP</a></li>
+            
+            <!-- Aba RUA -->
             <li class="tab col s3"><a id="rua-link" href="#tab-rua">RUA</a></li>
-            <li class="tab col s3"><a id="log-link" onclick="listarLogs()" href="#tab-log">LOG</a></li>
+            
+            <!-- Aba LOGS (chama a função listarLogs ao clicar) -->
+            <li class="tab col s3"><a onclick="listarLogs()" href="#tab-logs">Logs</a></li>
           </ul>
         </div>
-        <!-- tab do cep -->
-        <div id="tab-cep" class="col s12">
-          <label for="cep">CEP</label>
 
+        <!-- ==================== ABA CEP ==================== -->
+        <div id="tab-cep" class="col s12">
+          <!-- Input para digitar CEP -->
+          <label for="cep">CEP</label>
           <input type="number" placeholder="Digite seu CEP" name="cep" id="cep">
-          <!-- <button >Buscar</button> -->
-          <a onclick="buscaCepFetch()" class="waves-effect waves-light btn"><i
-              class="material-icons left">search</i>Buscar</a>
-          <!-- <a onclick="buscaCepAjax()" class="waves-effect waves-light btn"><i
-              class="material-icons left">search</i>Buscar
-            Ajax</a>
-          <a onclick="buscaCepAxios()" class="waves-effect waves-light btn"><i
-              class="material-icons left">search</i>Buscar Axios oi</a> -->
+
+          <!-- Botão para buscar CEP -->
+          <a onclick="buscaCepFetch()" class="waves-effect waves-light btn">
+            <i class="material-icons left">search</i>Buscar
+          </a>
+
+          <!-- Resultados da busca -->
           <ul class="collection">
             <li class="collection-item">RUA: <span id="dadoRua"></span></li>
             <li class="collection-item">BAIRRO: <span id="dadoBairro"></span></li>
             <li class="collection-item">CIDADE: <span id="dadoCidade"></span></li>
             <li class="collection-item">ESTADO: <span id="dadoEstado"></span></li>
           </ul>
-
         </div>
 
-        <!-- tab da rua -->
+        <!-- ==================== ABA RUA ==================== -->
         <div id="tab-rua" class="col s12">
           <div class="row">
+            <!-- Select do estado -->
             <div class="input-field col s6">
-              <select onchange="pegarCidades()" id="estado" class="browser-default"></select>
+              <select onchange="pegarCidades()" placeholder="Cidade" id="estado" class="browser-default"></select>
             </div>
+
+            <!-- Select da cidade-->
             <div class="input-field col s6">
               <select id="cidade" class="browser-default"></select>
             </div>
+
+            <!-- Input para digitar a rua -->
             <div class="input-field col s6">
               <i class="material-icons prefix">location_on</i>
               <input id="rua" type="tel" class="validate">
               <label for="rua">Rua</label>
             </div>
+
+            <!-- Botão para buscar a rua -->
             <div class="input-field col s6">
-              <a onclick="buscaRua()" class="waves-effect waves-light btn"><i
-                  class="material-icons right">search</i>Enviar</a>
+              <a onclick="buscaRua()" class="waves-effect waves-light btn">
+                <i class="material-icons right">search</i>Enviar
+              </a>
             </div>
           </div>
 
-          <div id="lista-ruas">
-            aqui vai aparecer varias ruas
-          </div>
-
+          <!-- Div onde serão listadas as ruas encontradas -->
+          <div id="lista-ruas"></div>
         </div>
 
-        <!-- tab do log -->
-        <div id="tab-log" class="col s12">
-          <ul class="collection" id="lista-logs"></ul>
+        <!-- ==================== ABA LOGS ==================== -->
+        <div id="tab-logs" class="col s12">
+          <div id="listas-logs">
+            <!-- Lista de logs preenchida dinamicamente por listarLogs() -->
+            <ul class="collection" id="lista-logs"></ul>
+          </div>
         </div>
 
       </div>
+    </div>
+  </div>
 
-      <!--  Scripts Externos -->
-      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src="js/materialize.js"></script>
-      <script src="js/init.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  <!-- ==================== Scripts ==================== -->
+  <!-- jQuery (necessário para Materialize) -->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-      <!-- MEUS SCRIPTS DO CEP -->
-      <script src="/js/scripts/cep/buscaCepAjax.js"></script>
-      <script src="/js/scripts/cep/buscaCepFetch.js"></script>
-      <script src="/js/scripts/cep/buscaCepAxios.js"></script>
-      <!-- MEUS SCRIPT DE RUA -->
-      <script src="/js/scripts/rua/buscaRua.js"></script>
-      <script src="/js/scripts/rua/pegarCidades.js"></script>
-      <script src="/js/scripts/rua/pegarEstados.js"></script>
+  <!-- Materialize JS -->
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-      <!-- MEUS SCRIPT DE LOG -->
-      <script src="/js/scripts/log/salvarLogs.js"></script>
-      <script src="/js/scripts/log/listarLogs.js"></script>
-      <script src="/js/scripts/log/montarLogs.js"></script>
-      <script>
-        $(".preloader-wrapper").hide(); // ESCONDE O LOADING
-      </script>
+  <!-- Axios para requisições HTTP -->
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+  <!-- ==================== Scripts de funcionalidades ==================== -->
+
+  <!-- Scripts de CEP -->
+  <script src="/js/scripts/cep/buscaCepAjax.js"></script>
+  <script src="/js/scripts/cep/buscaCepFetch.js"></script>
+  <script src="/js/scripts/cep/buscaCepAxios.js"></script>
+
+  <!-- Scripts de RUA -->
+  <script src="./js/scripts/rua/buscaRua.js"></script>
+  <script src="/js/scripts/rua/pegarCidades.js"></script>
+  <script src="/js/scripts/rua/pegarEstados.js"></script>
+
+  <!-- Scripts de LOGS -->
+  <script src="js/scripts/log/salvarLogs.js"></script>
+  <script src="js/scripts/log/listarLogs.js"></script>
+  <script src="js/scripts/log/montarLogs.js"></script>
+
+  <!-- Esconde o loading quando a página carregar -->
+  <script>
+    $(".preloader-wrapper").hide(); // ESCONDE O LOADING
+  </script>
 
 </body>
 
